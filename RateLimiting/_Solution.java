@@ -1,16 +1,18 @@
 package RateLimiting;
 
+//Common solution to call for any of the five Rate Limiting Techniques
 public class _Solution {
     public static void main(String[] args){
         //TokenBucket limiter = new TokenBucket(10, 1);
-        LeakyBucket limiter = new LeakyBucket(10, 1);
+        //LeakyBucket limiter = new LeakyBucket(10, 1);
+        //FixedWindowCounter limiter = new FixedWindowCounter(10, 10);
+        SliderWindowLog limiter = new SliderWindowLog(10, 10);
         try{
             for(int i=1; i<=15; i++){
-                System.out.println(i+" "+limiter.allowRequest());
+                System.out.println(i+" "+limiter.allowRequest());  //request id and check to allow or not
                 Thread.sleep(100); //wait for 0.1 sec
-                 /*prints true for first 11(10+1): 10 for capacity and refill after a fixed rate*/
             }
-            Thread.sleep(5000); //wait of 5 secs fills the bucket with 5 more tokens
+            Thread.sleep(10000); //wait of 10 secs 
             System.out.println(limiter.allowRequest());
         }
         catch(Exception ex){
